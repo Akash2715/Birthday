@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday, Harini</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500;1,9..144,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0606;
+    --surface:#170f10;
+    --surface-2:#1f1415;
+    --red:#c4122f;
+    --red-bright:#ff2d4d;
+    --text:#f7ece9;
+    --muted:#9c8285;
+    --border:rgba(247,236,233,0.09);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Manrope',sans-serif;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .eyebrow{
+    font-family:'Manrope',sans-serif;
+    font-size:0.72rem;
+    font-weight:700;
+    letter-spacing:0.28em;
+    text-transform:uppercase;
+    color:var(--red-bright);
+    margin-bottom:1.1rem;
+  }
+
+  section[id]{ scroll-margin-top:58px; }
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:sticky;
+    top:0;
+    z-index:20;
+    display:flex;
+    justify-content:center;
+    gap:clamp(1rem, 5vw, 2.4rem);
+    padding:1rem 1.2rem;
+    background:rgba(10,6,6,0.74);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .nav::-webkit-scrollbar{ display:none; }
+
+  .nav a{
+    font-family:'Manrope',sans-serif;
+    font-size:0.7rem;
+    font-weight:700;
+    letter-spacing:0.13em;
+    text-transform:uppercase;
+    color:var(--muted);
+    text-decoration:none;
+    white-space:nowrap;
+    padding-bottom:0.3rem;
+    border-bottom:2px solid transparent;
+    transition:color 0.25s ease, border-color 0.25s ease;
+  }
+  .nav a:hover{ color:var(--text); }
+  .nav a.active{ color:var(--red-bright); border-color:var(--red-bright); }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100svh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    position:relative;
+    padding:2rem 1.5rem;
+    overflow:hidden;
+  }
+
+  .hero-glow{
+    position:absolute;
+    width:140vw;
+    height:140vw;
+    max-width:900px;
+    max-height:900px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(196,18,47,0.55) 0%, rgba(196,18,47,0.18) 38%, rgba(10,6,6,0) 70%);
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    animation:pulseGlow 5s ease-in-out infinite;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  .ember{
+    position:absolute;
+    width:4px;
+    height:4px;
+    border-radius:50%;
+    background:var(--red-bright);
+    opacity:0;
+    box-shadow:0 0 8px 2px rgba(255,45,77,0.6);
+    animation:floatUp 7s ease-in infinite;
+    z-index:0;
+  }
+
+  .hero-content{ position:relative; z-index:1; }
+
+  .hero h1{
+    font-family:'Fraunces',serif;
+    font-weight:900;
+    font-size:clamp(2.6rem, 13vw, 6.8rem);
+    line-height:0.96;
+    letter-spacing:-0.02em;
+    text-transform:uppercase;
+  }
+
+  .hero h1 .line2{
+    display:block;
+    color:var(--red);
+    -webkit-text-stroke:2px var(--red-bright);
+    color:transparent;
+  }
+
+  .hero-date{
+    margin-top:1.6rem;
+    font-size:0.95rem;
+    color:var(--muted);
+    letter-spacing:0.04em;
+  }
+
+  .hero-date strong{ color:var(--text); font-weight:700; }
+
+  .scroll-cue{
+    position:absolute;
+    bottom:2.4rem;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:1;
+    color:var(--muted);
+    font-size:0.7rem;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:0.5rem;
+  }
+
+  .scroll-cue svg{ animation:bounceChevron 1.8s ease-in-out infinite; }
+
+  /* ---------- LETTER ---------- */
+  .letter{
+    padding:6rem 1.5rem 5rem;
+    max-width:620px;
+    margin:0 auto;
+  }
+
+  .letter-title{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-weight:600;
+    font-size:clamp(1.7rem, 6vw, 2.6rem);
+    line-height:1.2;
+    margin-bottom:2.2rem;
+  }
+
+  .letter p{
+    font-size:1.05rem;
+    line-height:1.85;
+    color:#e7d8d6;
+    margin-bottom:1.6rem;
+  }
+
+  .reveal{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity 0.9s ease, transform 0.9s ease;
+  }
+  .reveal.in-view{ opacity:1; transform:translateY(0); }
+
+  /* photo placeholders */
+  .photo-frame{
+    width:100%;
+    max-width:320px;
+    aspect-ratio:4/5;
+    margin:2.4rem auto;
+    background:linear-gradient(160deg, var(--surface-2), var(--surface));
+    border:1px dashed rgba(247,236,233,0.22);
+    border-radius:4px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:0.9rem;
+    position:relative;
+    box-shadow:0 18px 40px -16px rgba(0,0,0,0.6);
+  }
+  .photo-frame.tilt-left{ transform:rotate(-3deg); }
+  .photo-frame.tilt-right{ transform:rotate(2deg); }
+
+  .photo-frame svg{ width:34px; height:34px; opacity:0.35; }
+
+  .photo-frame span{
+    font-size:0.78rem;
+    color:var(--muted);
+    letter-spacing:0.03em;
+    text-align:center;
+    padding:0 1.2rem;
+  }
+
+  .photo-caption{
+    text-align:center;
+    font-size:0.8rem;
+    color:var(--muted);
+    font-style:italic;
+    margin-top:-1.4rem;
+    margin-bottom:2rem;
+  }
+
+  /* ---------- CLOSING ---------- */
+  .closing{
+    min-height:100svh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:4rem 1.6rem;
+    position:relative;
+    background:radial-gradient(ellipse at 50% 30%, rgba(196,18,47,0.14), transparent 60%);
+  }
+
+  .my-love-lead{
+    font-size:1.02rem;
+    line-height:1.85;
+    color:#e7d8d6;
+    max-width:480px;
+    margin-bottom:2.2rem;
+  }
+
+  .closing-question{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-style:italic;
+    font-size:clamp(1.6rem, 7vw, 2.7rem);
+    line-height:1.25;
+    max-width:480px;
+    margin-bottom:3rem;
+  }
+
+  .seal{
+    width:118px;
+    height:118px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, var(--red-bright), var(--red) 55%, #6b0b1c 100%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:
+      0 0 0 4px rgba(196,18,47,0.15),
+      0 20px 40px -14px rgba(196,18,47,0.55),
+      inset 0 4px 10px rgba(255,255,255,0.18),
+      inset 0 -10px 18px rgba(0,0,0,0.4);
+    opacity:0;
+    transform:scale(2.2) rotate(-18deg);
+  }
+  .seal.stamped{
+    animation:stampIn 0.9s cubic-bezier(.2,.9,.3,1.2) forwards;
+  }
+
+  .seal-text{
+    font-family:'Fraunces',serif;
+    font-weight:700;
+    font-size:1.4rem;
+    color:#1a0306;
+    letter-spacing:0.02em;
+  }
+
+  .signed{
+    margin-top:2.4rem;
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-size:1.1rem;
+    color:var(--text);
+  }
+
+  .closing-footer{
+    margin-top:1.6rem;
+    font-size:0.82rem;
+    color:var(--muted);
+    letter-spacing:0.02em;
+  }
+
+  /* ---------- ANIMATIONS ---------- */
+  @keyframes pulseGlow{
+    0%,100%{ opacity:0.55; transform:translate(-50%,-50%) scale(1); }
+    50%{ opacity:0.85; transform:translate(-50%,-50%) scale(1.07); }
+  }
+
+  @keyframes floatUp{
+    0%{ opacity:0; transform:translateY(0) scale(1); }
+    10%{ opacity:0.8; }
+    90%{ opacity:0.4; }
+    100%{ opacity:0; transform:translateY(-260px) scale(0.4); }
+  }
+
+  @keyframes bounceChevron{
+    0%,100%{ transform:translateY(0); opacity:0.6; }
+    50%{ transform:translateY(7px); opacity:1; }
+  }
+
+  @keyframes stampIn{
+    0%{ opacity:0; transform:scale(2.2) rotate(-18deg); }
+    55%{ opacity:1; transform:scale(0.92) rotate(5deg); }
+    100%{ opacity:1; transform:scale(1) rotate(-6deg); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important; }
+  }
+
+  /* ---------- LOCK SCREEN ---------- */
+  body.locked{ overflow:hidden; height:100svh; }
+
+  .lock-screen{
+    position:fixed; inset:0; z-index:50;
+    background:var(--bg);
+    display:flex; align-items:center; justify-content:center;
+    padding:1.5rem;
+    transition:opacity 0.6s ease, visibility 0.6s ease;
+  }
+  .lock-screen.hidden{ opacity:0; visibility:hidden; pointer-events:none; }
+
+  .lock-card{ width:100%; max-width:340px; text-align:center; }
+
+  .lock-icon svg{ width:34px; height:34px; stroke:var(--red-bright); margin-bottom:1.3rem; }
+
+  .lock-title{
+    font-family:'Fraunces',serif; font-style:italic; font-weight:600;
+    font-size:1.55rem; line-height:1.25; margin-bottom:0.6rem;
+  }
+
+  .lock-sub{ font-size:0.83rem; color:var(--muted); margin-bottom:2rem; line-height:1.5; }
+
+  .lock-input{
+    width:100%; background:var(--surface); border:1px solid var(--border);
+    border-radius:6px; padding:0.85rem 1rem; color:var(--text);
+    font-family:'Manrope',sans-serif; font-size:0.95rem; margin-bottom:0.9rem;
+    outline:none; transition:border-color 0.2s;
+  }
+  .lock-input::placeholder{ color:var(--muted); }
+  .lock-input:focus{ border-color:var(--red-bright); }
+
+  .lock-btn{
+    width:100%; background:var(--red); color:#fff; border:none; border-radius:6px;
+    padding:0.9rem; font-family:'Manrope',sans-serif; font-weight:700; font-size:0.95rem;
+    letter-spacing:0.02em; cursor:pointer; margin-top:0.3rem; transition:background 0.2s, transform 0.15s;
+  }
+  .lock-btn:hover{ background:var(--red-bright); }
+  .lock-btn:active{ transform:scale(0.98); }
+
+  .lock-error{
+    font-size:0.78rem; color:var(--red-bright); margin-top:0.9rem; min-height:1.1rem;
+    opacity:0; transition:opacity 0.2s;
+  }
+  .lock-error.show{ opacity:1; }
+
+  .lock-card.shake{ animation:shake 0.4s ease; }
+  @keyframes shake{
+    0%,100%{ transform:translateX(0); }
+    20%{ transform:translateX(-8px); }
+    40%{ transform:translateX(8px); }
+    60%{ transform:translateX(-6px); }
+    80%{ transform:translateX(6px); }
+  }
+</style>
+</head>
+<body class="locked">
+
+  <!-- LOCK SCREEN -->
+  <div class="lock-screen" id="lockScreen">
+    <div class="lock-card" id="lockCard">
+      <div class="lock-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+      </div>
+      <div class="eyebrow">A locked letter</div>
+      <div class="lock-title">Only she would know this.</div>
+      <div class="lock-sub">Enter your name and your birthday to open it.</div>
+      <input type="text" id="lockUser" class="lock-input" placeholder="Your name" autocomplete="off">
+      <input type="text" id="lockPass" class="lock-input" placeholder="Your birthday (DD/MM/YYYY)" autocomplete="off">
+      <button class="lock-btn" id="lockBtn">Unlock</button>
+      <div class="lock-error" id="lockError">That's not quite right. Try again.</div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="nav" id="siteNav">
+    <a href="#home" class="active">Home</a>
+    <a href="#about-us">About Us</a>
+    <a href="#about-you">About You</a>
+    <a href="#my-love">My Love</a>
+  </nav>
+
+  <!-- HOME -->
+  <section id="home" class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <div class="eyebrow">For Harini, with love</div>
+      <h1>Happy<span class="line2">Birthday</span></h1>
+      <div class="hero-date">Your day — <strong>March 27</strong>. My favorite day on the calendar.</div>
+    </div>
+    <div class="scroll-cue">
+      <span>scroll</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+  </section>
+
+  <!-- ABOUT US -->
+  <section id="about-us" class="letter">
+    <div class="eyebrow reveal">About us</div>
+    <h2 class="letter-title reveal">Since school, it's only ever been you.</h2>
+
+    <p class="reveal">I still don't completely understand why I fell for you. I just know that somewhere in between all those ordinary school days, you became the reason they stopped feeling ordinary. Your laugh, the way you'd just be there without even trying — that's stayed with me ever since.</p>
+
+    <!-- Replace the background-image url below with a real photo link to personalize this -->
+    <div class="photo-frame tilt-left reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#f7ece9" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3.2"/><path d="M8 5l1.5-2h5L16 5"/></svg>
+      <span>add a photo of us here</span>
+    </div>
+    <p class="photo-caption reveal">— a moment from somewhere along the way</p>
+
+    <p class="reveal">Looking back now, so much of what made those years memorable was you. Not one big moment — just you, present in all of it, making it feel full. That's a strange kind of gift, and I don't think I ever properly said thank you for it.</p>
+  </section>
+
+  <!-- ABOUT YOU -->
+  <section id="about-you" class="letter">
+    <div class="eyebrow reveal">About you</div>
+    <h2 class="letter-title reveal">The things I notice about you.</h2>
+
+    <p class="reveal">You don't try to be anything other than yourself, and somehow that ends up being the rarest thing I know. The quiet way you care, before you even say anything. The way ordinary days feel lighter just because you're in them.</p>
+
+    <!-- Replace the background-image url below with a real photo link to personalize this -->
+    <div class="photo-frame tilt-right reveal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#f7ece9" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3.2"/><path d="M8 5l1.5-2h5L16 5"/></svg>
+      <span>add another one here</span>
+    </div>
+    <p class="photo-caption reveal">— you, exactly as you are</p>
+
+    <p class="reveal">I don't think you've ever fully realized how much of an impact you've had on me. Not the big-moment kind — the everyday kind. The kind that's harder to thank someone for, but the kind that matters most.</p>
+  </section>
+
+  <!-- MY LOVE -->
+  <section id="my-love" class="closing">
+    <div class="eyebrow">My love</div>
+    <p class="my-love-lead">So here's what I actually want you to know: I can't picture losing you from my life. Not now, not later. You're not something I'm willing to let become just a memory.</p>
+    <div class="closing-question">Will you be mine — today, and always?</div>
+
+    <div class="seal" id="seal">
+      <span class="seal-text">H ♥ A</span>
+    </div>
+
+    <div class="signed">— Akash</div>
+    <div class="closing-footer">Think positive. Do positive. Let's keep choosing each other.</div>
+  </section>
+
+  <script>
+    // ---- lock screen ----
+    const lockScreen = document.getElementById('lockScreen');
+    const lockUser = document.getElementById('lockUser');
+    const lockPass = document.getElementById('lockPass');
+    const lockBtn = document.getElementById('lockBtn');
+    const lockError = document.getElementById('lockError');
+    const lockCard = document.getElementById('lockCard');
+
+    const VALID_USER = 'harini s';
+    const VALID_PASS = '27/03/2007';
+
+    function tryUnlock(){
+      const u = lockUser.value.trim().toLowerCase();
+      const p = lockPass.value.trim();
+      if (u === VALID_USER && p === VALID_PASS){
+        lockScreen.classList.add('hidden');
+        document.body.classList.remove('locked');
+      } else {
+        lockError.classList.add('show');
+        lockCard.classList.remove('shake');
+        void lockCard.offsetWidth;
+        lockCard.classList.add('shake');
+      }
+    }
+
+    lockBtn.addEventListener('click', tryUnlock);
+    lockPass.addEventListener('keydown', (e) => { if (e.key === 'Enter') tryUnlock(); });
+    lockUser.addEventListener('keydown', (e) => { if (e.key === 'Enter') lockPass.focus(); });
+
+    // ---- reveal animations ----
+    const reveals = document.querySelectorAll('.reveal');
+    const seal = document.getElementById('seal');
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting){
+          entry.target.classList.add('in-view');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    reveals.forEach(el => io.observe(el));
+
+    // ---- nav active state ----
+    const navLinks = document.querySelectorAll('.nav a');
+    const navSections = document.querySelectorAll('section[id]');
+
+    const navIo = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting){
+          navLinks.forEach(l => l.classList.remove('active'));
+          const match = document.querySelector('.nav a[href="#' + entry.target.id + '"]');
+          if (match) match.classList.add('active');
+        }
+      });
+    }, { threshold: 0.5 });
+
+    navSections.forEach(s => navIo.observe(s));
+
+    const sealIo = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting){
+          seal.classList.add('stamped');
+          sealIo.disconnect();
+        }
+      });
+    }, { threshold: 0.5 });
+    sealIo.observe(seal);
+
+    // ambient embers in hero
+    const hero = document.querySelector('.hero');
+    for (let i = 0; i < 14; i++){
+      const ember = document.createElement('div');
+      ember.className = 'ember';
+      ember.style.left = (10 + Math.random() * 80) + '%';
+      ember.style.bottom = (Math.random() * 20) + '%';
+      ember.style.animationDelay = (Math.random() * 7) + 's';
+      ember.style.animationDuration = (5 + Math.random() * 4) + 's';
+      hero.appendChild(ember);
+    }
+  </script>
+
+</body>
+</html>
